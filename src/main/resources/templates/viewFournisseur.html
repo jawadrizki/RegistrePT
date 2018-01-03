@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorator="template">
+<head>
+<meta charset="utf-8" />
+<title th:text="'Nos Clients : ' + ${fournisseur.nomComplet}"></title>
+</head>
+<body>
+	<div layout:fragment="content">
+
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">
+					Fournisseur : <strong th:text="${fournisseur.nomComplet}"></strong>
+				</h1>
+			</div>
+		</div>
+		<div class="row">
+			
+				<div class="form-group col-sm-offset-6">
+					<label class="col-lg-3  control-label">Reglement</label>
+					<form method="post" th:action="@{/CoviewRegl}">
+					<div class="col-sm-5">
+
+						<select name="regl" class="form-control" required="required">
+							<option th:each="reglement:${reglements}"
+								th:value="${reglement.id}"
+								th:if="${reglement.id} == ${selectRegl.id}"
+								th:text="'de ' + ${#strings.substring(reglement.dateStart,0,10)}"></option>
+							<option th:each="reglement:${reglements}"
+								th:value="${reglement.id}"
+								th:if="${reglement.id} != ${selectRegl.id}"
+								th:text="'de ' + ${#strings.substring(reglement.dateStart,0,10)}"></option>
+
+						</select>
+
+					</div>
+					<div class="col-sm-2">
+						<button class="btn btn-info">Voir</button>
+					</div>
+					</form>
+					<div class="col-sm-2">
+						<button data-toggle="modal"  data-target="#myModal" data-param="jawad"
+							class="btn btn-success">+</button>
+						<!-- Modal -->
+						<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+							aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button>
+										<h4 class="modal-title" id="myModalLabel">Confirmation</h4>
+									</div>
+									<div class="modal-body">
+										Voulez-vous vraiment ajouter un nouvelle reglement pour <strong
+											th:text="${fournisseur.nomComplet}"></strong>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">Annuler</button>
+										<a th:href="@{/addReglement(partenaire=${fournisseur.id})}"
+											class="btn btn-primary">Ajouter</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /.modal -->
+					</div>
+				</div>
+
+
+		</div>
+		<div class="row">
+			<div class="panel panel-default" style="margin: 20px">
+				<div class="panel-heading">
+					Situation de reglement <label
+						th:if="${activeRegl.id} == ${selectRegl.id}" style="color:green">(<i style="font-size:10px" class="fa fa-power-off"></i> active)</label>
+				</div>
+				<table class="table table-sm">
+					<tr>
+						<th>Total des factures</th>
+						<th>Total des Virments</th>
+					</tr>
+					<tr>
+						<td class="bg-success"><span th:text="${totalBons}"></span>
+							<a
+							th:href="@{/CoshowOperations(idPartenaire=${fournisseur.id},type='B',r=${selectRegl.id})}"
+							class="btn btn-default btn-sm btn-success pull-right"> <span
+								class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+								Consulter
+						</a></td>
+						<td class="bg-danger"><span th:text="${totalPaiements}"></span>
+							<a
+							th:href="@{/CoshowOperations(idPartenaire=${fournisseur.id},type='P',r=${selectRegl.id})}"
+							class="btn btn-default btn-sm btn-danger pull-right"> <span
+								class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+								Consulter
+						</a></td>
+					</tr>
+					<tr>
+						<td colspan="2"><strong class="col-lg-2">situation
+								Net de Reglement:</strong>
+							<div style="font-weight: bold;" class="col-lg-10 text-center"
+								th:text="(${totalBons} - ${totalPaiements}) + ' DH'"></div></td>
+					</tr>
+					<tr>
+						<td colspan="2"><strong class="col-lg-2">situation generale
+								Net:</strong>
+							<div style="font-weight: bold;" class="col-lg-10 text-center"
+								th:text="${situation}"></div></td>
+					</tr>
+				</table>
+
+			</div>
+		</div>
+
+
+	</div>
+
+
+
+
+
+</body>
+<script>
+
+$( "#b" ).click(function() {
+	  alert( "Handler for .click() called." );
+	});
+</script>
+</html>

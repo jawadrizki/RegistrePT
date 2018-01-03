@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorator="template">
+<head>
+<meta charset="utf-8" />
+<title>Insert title here</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="col-md-12">
+			<div class="box box-primary">
+				<div class="box-header">
+					<h3 class="box-title text-center">Operations Avec les Fournisseurs</h3>
+				</div>
+				<div class="box-body">
+					<div th:if="${success}"
+						class="alert alert-success alert-dismissable">
+						<i class="fa fa-check"></i>
+						<button type="button" class="close" data-dismiss="alert"
+							aria-hidden="true">×</button>
+						<div th:text="${success}"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="box box-success collapsed-box">
+				<div class="box-header">
+					<h3 class="box-title">Ajouter un bon</h3>
+					<div class="pull-right box-tools">
+                        <button class="btn btn-danger btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+				</div>
+				<form role="form" method="post" th:action="@{/saveBon}">
+					<div class="box-body" style="display: none">
+						<div class="form-group">
+							<label for="nomSte" class="control-label">Fournisseur</label> <select
+								name="partenaire" class="form-control" required="required">
+								<option></option>
+								<option th:each="fournisseur:${fournisseurs}"
+									th:value="${fournisseur.id}"
+									th:text="${fournisseur.nomComplet}"></option>
+
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="date">Date</label> <input class="form-control"
+								type="date" name="dateB" id="date" required="required"
+								placeholder="Date" />
+						</div>
+						<div class="form-group">
+							<label for="montant">Montant</label> <input class="form-control"
+								name="montant" id="montant" th:value="${bon.montant}"
+								placeholder="0.00" required="required" />
+						</div>
+						<div class="form-group">
+							<label for="autres">Autres</label>
+
+							<textarea class="form-control" name="autres" id="autres"
+								th:text="${bon.autres}" placeholder="Autres informations ..."></textarea>
+
+
+						</div>
+					</div>
+					<div class="box-footer" style="display: none">
+						<button type="submit" class="btn btn-success">Enregistrer</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="box box-danger collapsed-box">
+				<div class="box-header">
+					<h3 class="box-title">Enregistrer un nouvelle paiement pour un
+						fournissuer</h3>
+						<div class="pull-right box-tools">
+                        <button class="btn btn-danger btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+				</div>
+				<form role="form" method="post"
+					th:action="@{/savePayemntFournisseur}">
+					<div class="box-body" style="display: none">
+						<div class="form-group">
+							<label for="nomSte">Societé</label> <select name="partenaire"
+								class="form-control" required="required">
+								<option></option>
+								<option th:each="fournisseur:${fournisseurs}"
+									th:value="${fournisseur.id}"
+									th:text="${fournisseur.nomComplet}"></option>
+
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="date">Date</label> <input class="form-control"
+								type="date" name="dateF" id="date" required="required"
+								placeholder="Date" />
+						</div>
+						<div class="form-group">
+							<label for="montant">Montant</label> <input class="form-control"
+								name="montant" id="montant"
+								th:value="${paymentFournisseur.montant}" placeholder="0.00"
+								required="required" />
+
+						</div>
+						<div class="form-group">
+							<label for="autres">Autres</label>
+
+							<textarea class="form-control" name="autres" id="autres"
+								th:text="${paymentFournisseur.autres}"
+								placeholder="Autres informations ..."></textarea>
+
+
+						</div>
+					</div>
+					<div class="box-footer" style="display: none">
+						<button type="submit" class="btn btn-success">Enregistrer</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+</html>

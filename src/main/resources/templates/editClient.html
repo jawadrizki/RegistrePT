@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorator="template">
+<head>
+<meta charset="utf-8" />
+<title>Ajouter un client</title>
+</head>
+<body>
+	<div layout:fragment="content">
+	<div class="col-md-3"></div>
+		<div class="col-md-6">
+			<div class="box box-success">
+				<div class="box-header">
+					<h3 class="box-title">Ajouter une facture</h3>
+				</div>
+
+				<form class="form-horizontal" method="post"
+					th:action="@{/CosaveEditClient}">
+					<div class="box-body" style="padding: 20px">
+						
+						<div class="alert alert-danger" th:if="${errors}">
+							<ul>
+								<li th:each="error:${errors}"><label th:text="${error}"></label>
+								</li>
+							</ul>
+						</div>
+						<div class="form-group">
+							<label for="nomSte" class=" control-label">Societé</label> <input
+								class="form-control" name="nomSte" th:value="${client.nomSte}"
+								id="nomSte" placeholder="Le nom de la Societe" type="text" />
+								<input name="id" th:value="${client.id}" hidden="hidden" />
+									<input name="date" th:value="${client.dateAjoute}" hidden="hidden" />
+
+						</div>
+						<div class="form-group">
+							<label for="fax" class=" control-label">Fax</label> <input
+								class="form-control" th:value="${client.fax}" name="fax"
+								id="fax" placeholder="Fax" type="text" />
+
+						</div>
+						<div class="form-group">
+							<label for="tel" class=" control-label">Telephone</label> <input
+								class="form-control" name="telephone"
+								th:value="${client.telephone}" id="tel" placeholder="Telephone"
+								type="text" />
+
+						</div>
+						<div class="form-group">
+							<label for="addresse" class=" control-label">Adresse</label>
+							<textarea class="form-control" name="addresse" id="addresse"
+								placeholder="Adresse" th:value="${client.addresse}"></textarea>
+						</div>
+					</div>
+					<div class="box-footer">
+						<button class="btn btn-success">Enregistrer</button>
+						<a th:href="@{/Coclients}"
+							class="btn btn-warning">Annuler</a>
+					</div>
+				</form>
+			</div>
+		</div>
+
+	</div>
+
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorator="template">
+<head>
+<meta charset="utf-8" />
+<title>Ajouter un fournisseur</title>
+</head>
+<body>
+	<div layout:fragment="content">
+	<div class="col-md-3"></div>
+		<div class="col-md-6">
+			<div class="box box-success">
+				<div class="box-header">
+					<h3 class="box-title">Ajouter un fournisseur</h3>
+				</div>
+
+				<form class="form-horizontal" method="post"
+					th:action="@{/CosaveFournisseur}">
+					<div class="box-body" style="padding: 20px">
+						
+						<div class="alert alert-danger" th:if="${errors}">
+							<ul>
+								<li th:each="error:${errors}"><label th:text="${error}"></label>
+								</li>
+							</ul>
+						</div>
+							<div class="form-group">
+							<label for="nom" class=" control-label">Nom Complet</label>
+							
+								<input class="form-control" name="nomComplet" th:value="${fournisseur.nomComplet}" id="nom"
+									placeholder="Nom" type="text" />
+							
+							</div>
+							<div class="form-group">
+								<label for="tel" class=" control-label">Telephone</label>
+								
+									<input class="form-control" name="telephone" th:value="${fournisseur.telephone}" id="tel"
+										placeholder="Telephone" type="text" />
+								
+							</div>
+							<div class="form-group">
+								<label for="addresse" class=" control-label">Adresse</label>
+								
+									<textarea class="form-control" name="addresse" id="addresse"
+										placeholder="Adresse" th:text="${fournisseur.addresse}"></textarea>
+								
+							</div>
+					<div class="box-footer">
+						<button class="btn btn-success">Enregistrer</button>
+						<a th:href="@{/Cofournisseurs}"
+							class="btn btn-warning">Annuler</a>
+					</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- <div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-primary">
+					<div class="panel-heading">Ajouter un nouvelle fournisseur</div>
+					<div class="panel-body">
+						<form class="form-horizontal" method="post"
+							th:action="@{/saveFournisseur}">
+							<div class="bg-danger" th:if="${errors}">
+								<ul>
+									<li th:each="error:${errors}"><label th:text="${error}"></label>
+									</li>
+								</ul>
+							</div>
+							<div class="form-group">
+							<label for="nom" class="col-sm-4 control-label">Nom Complet
+								Complet</label>
+							<div class="col-sm-8">
+								<input class="form-control" name="nomComplet" th:value="${fournisseur.nomComplet}" id="nom"
+									placeholder="Nom" type="text" />
+							</div>
+							</div>
+							<div class="form-group">
+								<label for="tel" class="col-sm-4 control-label">Telephone</label>
+								<div class="col-sm-8">
+									<input class="form-control" name="telephone" th:value="${fournisseur.telephone}" id="tel"
+										placeholder="Telephone" type="text" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="addresse" class="col-sm-4 control-label">Adresse</label>
+								<div class="col-sm-8">
+									<textarea class="form-control" name="addresse" id="addresse"
+										placeholder="Adresse" th:text="${fournisseur.addresse}"></textarea>
+								</div>
+							</div>
+
+							<div class="col-sm-3"></div>
+							<button class="btn btn-success col-sm-2">Enregistrer</button>
+							<div class="col-xs-1"></div>
+							<button onclick="window.history.back()"
+								class="btn btn-warning col-sm-2">Annuler</button>
+							<div class="col-sm-3"></div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div> -->
+	</div>
+
+
+</body>
+</html>

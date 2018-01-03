@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorator="template">
+<head>
+<meta charset="utf-8" />
+<title>Ajouter un utilisateur</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div style="padding-top:20px" class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div  class="panel panel-primary">
+					<div class="panel-heading">Ajouter un utilisateur</div>
+					<div class="panel-body">
+						<form class="form-horizontal" method="post"
+							th:action="@{/saveUser}">
+							<div class="bg-info" style="border-radius: 6px;">
+								Mot de passe doit:
+								<ul>
+									<li>Contient au moin 8 characteres</li>
+									<li>Contient seulement les characteres suivants A-Z, a-z, 0-9 </li>
+									<li>Les characteres speciales sont interdites</li>
+								</ul>
+							</div>
+							<div class="bg-danger" th:if="${errors}">
+								<ul>
+									<li th:each="error:${errors}"><label th:text="${error}"></label>
+									</li>
+								</ul>
+							</div>
+							<div class="form-group">
+								<label class="radio-inline col-sm-4 col-sm-offset-2"> <input type="radio" name="type" value="PC"
+								onchange="document.getElementById('PC').style.display='block';document.getElementById('GC').style.display='none'"/>
+								Compte associer a un partenaire </label>
+							<label class="radio-inline col-sm-4 col-sm-offset-2"><input type="radio" name="type" value="GC"
+								onchange="document.getElementById('GC').style.display='block';document.getElementById('PC').style.display='none'"
+								 checked="checked" /> Compte agent </label>
+							
+							</div>
+							<div class="form-group" id="GC">
+								<label for="nomSte"  class="col-sm-4 control-label">Nom d'utilisateur</label>
+								<div class="col-sm-8">
+									<input class="form-control" th:value="${username}" type="text" name="username" />
+									
+								</div>
+							</div>
+							<div class="form-group" style="display: none" id="PC">
+								<label for="nomSte" class="col-sm-4 control-label">Partenaire</label>
+								<div class="col-sm-4">
+									<select class="form-control" name="partenaire">
+										<option></option>
+										<option th:if="${partenaire.class.simpleName} == 'Client'"  th:each="partenaire:${partenaires}"
+													th:value="${partenaire.id}" th:text="${partenaire.nomSte}"
+											></option>
+										<option th:if="${partenaire.class.simpleName} == 'Fournisseur'"  th:each="partenaire:${partenaires}"
+													th:value="${partenaire.id}" th:text="${partenaire.nomComplet}"
+										></option>
+									</select>
+									
+								</div>
+								<div class="form-group" id="GC">
+								<div class="col-sm-4">
+									<input class="form-control" placeholder="Nom d'utilisateur" th:value="${username}" type="text" name="usernamep" />
+									
+								</div>
+							</div>
+							</div>
+							<div class="form-group">
+								<label for="pwd1" class="col-sm-4 control-label">Mot de passe</label>
+								<div class="col-sm-8">
+									<input class="form-control"  name="pwd1" id="fax"
+										 type="password" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="pwd2" class="col-sm-4 control-label">Confirmer le mot de passe</label>
+								<div class="col-sm-8">
+									<input class="form-control" name="pwd2" id="pwd2"
+										 type="password" />
+								</div>
+							</div>
+							
+
+							
+							<button class="btn btn-success col-sm-3 col-sm-offset-3">Enregistrer</button>
+							
+							<button th:href="@{/users}"
+								class="btn btn-warning col-sm-3 col-sm-offset-1">Annuler</button>
+							
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorator="template">
+<head>
+<meta charset="utf-8" />
+<title>Register Poisson Tata</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div sec:authorize="hasRole('ROLE_AGENT')">
+			<div class="box box-solid" style="padding: 5px">
+				<div class="box-header">
+					<h3 class="box-title">Résumé d'activités</h3>
+					<form action="get" th:action="@{/home}">
+						<div class="pull-right input-group margin col-md-3">
+							<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							<select name="days" class="form-control" required="required">
+								<option value="" hidden="hidden" >Changer la période</option>
+								<option value="0">aujourd'hui</option>
+								<option value="1">hier</option>
+								<option value="7">Les derniers 7 jours</option>
+								<option value="30">Les derniers 30 jours</option>
+							</select> <span class="input-group-btn"> <input
+								class=" btn btn-info btn-flat" value="Voir" type="submit" />
+							</span>
+						</div>
+					</form>
+					
+				</div>
+				<div class="row">
+					<div class="col-md-12" style="margin: 10px">
+						<strong> <i class="fa fa-calendar" style="font-size: 16px"></i>
+							<span th:if="${days} == 0">Aujourd'hui</span>
+							<span th:if="${days} == 1">Hier</span>
+							<span th:if="${days} == 7">Periode : 7 derniers jours</span>
+							<span th:if="${days} == 30">Periode : 30 derniers jours</span>
+						
+						</strong>
+					</div>
+				
+				</div>
+				<!-- /.box-header -->
+				<div class="row">
+					<div class="col-lg-3 col-xs-6">
+						<!-- small box -->
+						<div class="small-box bg-aqua">
+							<div class="inner">
+								<h3 th:text="(${totalF}?${totalF}:'0') + ' DH'"></h3>
+								<p>Factures</p>
+							</div>
+							<div class="icon">
+								<i class="fa fa-building-o" style="font-size: 60 px"></i>
+							</div>
+							<div class="small-box-footer">
+								<span th:text="${countF}"></span> Facture(s)
+							</div>
+						</div>
+					</div>
+					<!-- ./col -->
+					<div class="col-lg-3 col-xs-6">
+						<!-- small box -->
+						<div class="small-box bg-blue">
+							<div class="inner">
+								<h3 th:text="(${totalB}?${totalB}:'0') + ' DH'"></h3>
+								<p>Bons</p>
+							</div>
+							<div class="icon">
+								<i class="fa fa-building-o"></i>
+							</div>
+							<div class="small-box-footer">
+							
+								<span th:text="${countB}"></span> Bon(s)
+							</div>
+						</div>
+					</div>
+					<!-- ./col -->
+					<div class="col-lg-3 col-xs-6">
+						<!-- small box -->
+						<div class="small-box bg-green">
+							<div class="inner">
+								<h3 th:text="(${totalV}?${totalV}:'0') + ' DH'">44</h3>
+								<p>Nouvelles Virments</p>
+							</div>
+							<div class="icon">
+								<i class="fa fa-money"></i>
+							</div>
+							<div class="small-box-footer"> 
+								<span th:text="${countV}"></span> Virment(s)
+							</div>
+						</div>
+					</div>
+					<!-- ./col -->
+					<div class="col-lg-3 col-xs-6">
+						<!-- small box -->
+						<div class="small-box bg-yellow">
+							<div class="inner">
+								<h3 th:text="(${totalP}?${totalP}:'0') + ' DH'">65</h3>
+								<p>Paiements</p>
+							</div>
+							<div class="icon">
+								<i class="fa fa-money"></i>
+							</div>
+							<div class="small-box-footer"> 
+								<span th:text="${countP}"></span> Paiement(s)
+							</div>
+						</div>
+					</div>
+					<!-- ./col -->
+				</div>
+			</div>
+			
+			<!-- /.box-body -->
+		</div>
+		<div sec:authorize="hasRole('ROLE_USER') and !hasRole('ROLE_AGENT')">
+			<div class="box box-solid" style="padding: 5px">
+				<div class="box-header">
+					<h3 class="box-title">Résumé d'activites</h3>
+				</div>
+				<div class="row">
+				<div class="col-lg-3 col-xs-6">
+						<!-- small box -->
+						<div class="small-box bg-aqua">
+							<div class="inner">
+								<h3 th:text="(${totalDocuments}?${totalDocuments}:'0') + ' DH'"></h3>
+								<p th:text="${Documents}"></p>
+							</div>
+							<div class="icon">
+								<i class="fa fa-fw fa-building-o" style="font-size: 40 px"></i>
+							</div>
+							<div class="small-box-footer"  style="background: none">
+								<br/>
+							</div>
+						</div>
+					</div>
+					<!-- ./col -->
+					<div class="col-lg-3 col-xs-6">
+						<!-- small box -->
+						<div class="small-box bg-green">
+							<div class="inner">
+								<h3 th:text="(${totalFinance}?${totalFinance}:'0') + ' DH'"></h3>
+								<p th:text="${Finance}"></p>
+							</div>
+							<div class="icon">
+								<i class="fa fa-fw fa-money"></i>
+							</div>
+							<a href="#" class="small-box-footer" style="background: none"> 
+								<br/>
+							</a>
+						</div>
+					</div>
+					</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorator="template">
+<head>
+<meta charset="utf-8" />
+<title>Register Poisson Tata</title>
+</head>
+<body>
+	<div layout:fragment="content">
+	
+	<div class="container">
+                    <div class="error-page">
+                        <h2 class="headline text-info"> 404</h2>
+                        <div class="error-content">
+                            <h3><i class="fa fa-warning text-yellow"></i> Ressources inexistants.</h3>
+                            <p>
+                                les roucources que vous voulez sont inexistants<br/>
+                                Mais, vous pouvez <a th:href='@{/}'>retourner au page principale</a>.
+                            </p>
+                            
+                        </div><!-- /.error-content -->
+                    </div><!-- /.error-page -->
+	
+	</div>
+	</div>
+
+</body>
+
+</html>
+
+
+
+

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorator="template">
+<head>
+<meta charset="utf-8" />
+<title>Register Poisson Tata</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+	<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">Liste des fournisseurs</h3>
+				<div class="box-tools">
+				<a th:href="@{/CoaddFournisseur}" class="pull-right btn btn-sm btn-success" style="color:white;margin-left: 10px" >Ajouter un fournisseur</a>
+				<form th:action="@{/CosearchFournisseur}">
+					<div class="input-group">
+					
+						<input type="text" class="form-control input-sm pull-right" style="width: 150px;"
+							placeholder="Search" name="name" />
+						<div class="input-group-btn">
+							<button class="btn btn-sm btn-default">
+								<i class="fa fa-search"></i>
+							</button>
+						</div>
+					</div>
+					</form>
+				</div>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body no-padding">
+				<table class="table table-condensed">
+					<thead>
+								<tr>
+									<th>Nom Complet</th>
+									<th>Date d'ajoute</th>
+									<th>Addresse</th>
+									<th>Telephone</th>
+									<th>Reglement</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="fournisseur:${listFournisseurs}">
+									<td th:text="${fournisseur.nomComplet}"></td>
+									<td th:text="${#strings.substring(fournisseur.dateAjoute,0,10)}"></td>
+									<td th:text="${fournisseur.addresse}"></td>
+									<td>Telephone: <label th:text="${fournisseur.telephone}"></label></td>
+									<td><a th:href="@{/CoviewFournisseur(idFournisseur=${fournisseur.id})}" class="btn btn-info btn-sm">Consulter</a></td>
+
+									<td><a th:href="@{/CoeditFournisseur(idFournisseur=${fournisseur.id})}" class="btn btn-info btn-sm">Modifier</a>
+									 	<a onclick="return confirm('Vous etes sur pour supprimer ce Collaborateur ?')" th:href="@{/deleteCollaborateur(id=${fournisseur.id})}" class="btn btn-danger btn-sm">Supprimer</a></td>
+								</tr>
+							</tbody>
+				</table>
+			</div>
+			<!-- /.box-body -->
+			<div class="box-footer clearfix">
+				<ul class="pagination pagination-sm no-margin pull-right">
+					<li th:each="p,status:${pages}"><a
+						th:href="@{/Cofournisseurs(page=${status.index})}"
+						th:text="${status.index} + 1"></a></li>
+				</ul>
+			</div>
+		</div>
+		
+	</div>
+
+</body>
+</html>

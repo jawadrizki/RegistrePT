@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorator="template">
+<head>
+<meta charset="utf-8" />
+<title>Espace administration</title>
+</head>
+<body>
+	<div layout:fragment="content">
+
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header"></h1>
+			</div>
+
+		</div>
+		
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<form class="navbar-form navbar-left" role="search" method="post"
+							th:action="@{/searchUser}">
+							<div class="form-group">
+								<input type="text" name="username" class="form-control"
+									placeholder="Chercher un utilisateur ..." />
+							</div>
+							<button type="submit" class="btn btn-default">Chercher</button>
+
+						</form>
+						
+							<a class="btn btn-success pull-right" th:href="@{/addUser}">Ajouter un utilisateur</a>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+
+				<div class="panel panel-default" th:if="${users}">
+					<div class="panel-heading">Liste fournisseurs</div>
+					<div class="panel-body">
+						
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Username</th>
+									<th>Type</th>
+									<th>Status</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="user:${users}">
+									<td th:text="${user.username}"></td>
+									<td th:text="${user.class.simpleName}"></td>
+									<td >
+											<a class="btn btn-success btn-sm" th:href="@{/activeToggel(username=${user.username})}" th:if="${user.active}">
+											Active
+											</a>
+											<a class="btn btn-warning btn-sm" th:href="@{/activeToggel(username=${user.username})}" th:unless="${user.active}">
+											Pas active
+											</a>
+									</td>
+
+									<td><a class="btn btn-info btn-sm" th:href="@{/changePwd(username=${user.username})}">Renitialiser le mot de passe</a> <a onclick="window.confirm('Vous voulez vraiment supprimer cet utilisateur .')" th:if="${user.class.simpleName} != 'Admin'" class="btn btn-danger btn-sm"  th:href="@{/deleteUser(username=${user.username})}">Supprimer</a></td>
+								</tr>
+							</tbody>
+						</table>
+						<div>
+							<ul class="nav nav-pills">
+								<li th:each="p,status:${pages}"><a
+									th:href="@{/users(page=${status.index})}"
+									th:text="${status.index} + 1"></a></li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+	</div>
+
+
+
+
+
+</body>
+</html>

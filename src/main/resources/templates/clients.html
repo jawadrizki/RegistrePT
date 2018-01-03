@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorator="template">
+<head>
+<meta charset="utf-8" />
+<title>Register Poisson Tata</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">Liste des clients</h3>
+				<div class="box-tools">
+				<a th:href="@{/CoaddClient}" class="pull-right btn btn-sm btn-success" style="color:white;margin-left: 10px" >Ajouter un client</a>
+				
+				<form th:action="@{/CosearchClient}">
+					<div class="input-group">
+						
+							<input type="text" class="form-control input-sm pull-right" style="width: 150px;"
+								placeholder="Search" name="name" />
+							<div class="input-group-btn">
+								<button class="btn btn-sm btn-default">
+									<i class="fa fa-search"></i>
+								</button>
+							</div>
+						
+					</div>
+					</form>
+				</div>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body no-padding">
+				<table class="table table-condensed">
+					<tbody>
+						<tr>
+							<th>Nom de Societé</th>
+							<th>Date d'ajoute</th>
+							<th>Addresse</th>
+							<th>Telephone et Fax</th>
+							<th>Reglements</th>
+							<th>Actions</th>
+						</tr>
+						<tr th:if="${result} == 0">
+							<td style="text-align: center; color: red" colspan="4"><strong>Aucun
+									resultats</strong></td>
+						</tr>
+						<tr th:each="client:${listClients}">
+							<td th:text="${client.nomSte}"></td>
+							<td th:text="${#strings.substring(client.dateAjoute,0,10)}"></td>
+							<td th:text="${client.addresse}"></td>
+							<td>Telephone: <label th:text="${client.telephone}"></label><br />
+								Fax: <label th:text="${client.fax}"></label></td>
+							<td><a class="btn btn-info btn-sm"
+								th:href="@{/CoviewClient(idClient=${client.id})}"><i
+									class="fa fa-list"></i> Consulter</a></td>
+
+							<td><a class="btn btn-info btn-sm"
+								th:href="@{/CoeditClient(idClient=${client.id})}">Modifier</a> <a
+								class="btn btn-danger btn-sm" onclick="return confirm('Vous etes sur pour supprimer ce Collaborateur ?')" th:href="@{/deleteCollaborateur(id=${client.id})}">Supprimer</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- /.box-body -->
+			<div class="box-footer clearfix">
+				<ul class="pagination pagination-sm no-margin pull-right">
+					<li th:each="p,status:${pages}"><a
+						th:href="@{/Coclients(page=${status.index})}"
+						th:text="${status.index} + 1"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
